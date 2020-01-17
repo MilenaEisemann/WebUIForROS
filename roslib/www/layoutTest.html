@@ -1,0 +1,215 @@
+<!-- https://stackoverflow.com/questions/206652/how-to-create-div-to-fill-all-space-between-header-and-footer-div -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ROS WebUI</title>
+    <!-- Bootstrap CSS file -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- own style -->
+    <link rel="stylesheet" type="text/css" href="/style/style2.css">
+</head>
+<body>
+  <!--<div id="nav-placeholder"></div>-->
+  <header>
+<!--
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <button type="button" class="navbar-toggler bg-light" data-toggle="collapse" data-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <button type="button" class="btn btn-danger"> Emergency Stop </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="nav">
+        <ul class="navbar-nav">
+          <li class="nav-item" >
+            <a class="nav-link text-light font-weight-bold px-3" href="new_page.html"> DB </a>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link text-light font-weight-bold px-3" href="basic_ros.html"> ROS </a>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link text-light font-weight-bold px-3" href="layoutTest.html"> Layout </a>
+          </li>
+
+          <li class="nav-item dropdown" id="language-dropdown" data-toggle="dropdown">
+            <a class="nav-link text-light font-weight-bold px-3 dropdown-toggle" href="#">CATEGORIES</a>
+          <div class="dropdown-menu"  id="navbar-dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" id="language_en" href="#" onclick="changeLanguage('en')"> English </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" id="language_de" onclick="changeLanguage('de')" href="#"> Deutsch </a>
+          </div>
+          </li>
+        </ul>
+
+        <!-- Search bar
+        <form class="form-inline ml-3">
+          <div class="input-group">
+            <input type="text" class="form-control " placeholder="Search" >
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </div>
+        </form> -->
+      </div> <!-- end collapsing part -->
+
+      <div class=" ml-3">
+      <button type="button" class="btn btn-dark fa fa-cogs nav-button"> </button>
+      <button type="button" class="btn btn-dark fa fa-microphone nav-button" id="toggleRobotListening"> </i></button>
+      <button type="button" class="btn btn-dark fa fa-volume-up nav-button"> </i></button>
+      </div>
+    </nav>
+    <!--
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button type="button" class="btn btn-danger"> Emergency Stop </button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="new<meta name=”viewport” content=”width=device-width, initial-scale=1.0">nav_page.html"> DB <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="basic_ros.html"> ROS <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+      </ul>
+      </div>
+
+      <div class="center-nav">
+        <h1 class="heading"> ROS UI </h1>
+        <div>
+        <span><span id="status"></span></span>
+        <span id="robot_info"></span>
+        </div>
+      </div>
+      <button type="button" class="btn btn-dark fa fa-cogs nav-button"> </button>
+      <button type="button" class="btn btn-dark fa fa-microphone nav-button" id="toggleRobotListening"> </i></button>
+      <button type="button" class="btn btn-dark fa fa-volume-up nav-button"> </i></button>
+    </nav> -->
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="row justify-content-center align-self-center">
+        <h2 class="static-translation" id="choose_behavior"> What do you want me to do? </h2>
+      </div>
+      <div class="row" id="behavior_wrapper">
+      </div>
+    </div>
+    <ul id="allDBObjects"> </ul>
+
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Interdum velit laoreet id donec ultrices. Proin nibh nisl condimentum id. Elit ut aliquam purus sit amet luctus. Id eu nisl nunc mi ipsum faucibus vitae. In aliquam sem fringilla ut. Neque aliquam vestibulum morbi blandit cursus risus at. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus. Diam maecenas sed enim ut sem. At ultrices mi tempus imperdiet nulla malesuada. Ut lectus arcu bibendum at varius vel pharetra vel turpis. Amet dictum sit amet justo donec enim diam. Aenean et tortor at risus viverra adipiscing at in tellus. Eget dolor morbi non arcu risus quis varius quam. Phasellus vestibulum lorem sed risus ultricies tristique. Viverra nibh cras pulvinar mattis. Ultricies leo integer malesuada nunc vel risus.
+
+Ultrices sagittis orci a scelerisque purus semper. Sit amet tellus cras adipiscing enim eu turpis egestas. Eu augue ut lectus arcu bibendum at varius vel. Gravida in fermentum et sollicitudin ac orci. In tellus integer feugiat scelerisque varius morbi enim. Fermentum dui faucibus in ornare quam viverra orci sagittis eu. Sed nisi lacus sed viverra tellus in hac habitasse platea. Eget dolor morbi non arcu risus. Massa sed elementum tempus egestas sed. Arcu vitae elementum curabitur vitae.
+
+Aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc. Eros in cursus turpis massa tincidunt dui ut ornare lectus. Cras sed felis eget velit aliquet sagittis id consectetur. Nulla posuere sollicitudin aliquam ultrices sagittis orci. Pharetra et ultrices neque ornare aenean euismod. Eget velit aliquet sagittis id. Hendrerit dolor magna eget est. Orci dapibus ultrices in iaculis. Amet est placerat in egestas erat imperdiet sed. A cras semper auctor neque vitae. Convallis convallis tellus id interdum velit laoreet id. Purus in massa tempor nec feugiat nisl pretium. A lacus vestibulum sed arcu. Phasellus egestas tellus rutrum tellus pellentesque eu. Sem viverra aliquet eget sit. Tincidunt ornare massa eget egestas. Nam aliquam sem et tortor consequat id.
+
+Ultricies lacus sed turpis tincidunt id aliquet. Mattis pellentesque id nibh tortor. Ut eu sem integer vitae justo eget magna fermentum. Vulputate dignissim suspendisse in est. Tincidunt ornare massa eget egestas purus. Nisl nisi scelerisque eu ultrices vitae auctor. Quis hendrerit dolor magna eget est. Eu sem integer vitae justo eget magna fermentum iaculis. Quis ipsum suspendisse ultrices gravida dictum fusce ut. Erat imperdiet sed euismod nisi. Fames ac turpis egestas maecenas pharetra. Interdum velit euismod in pellentesque. Arcu risus quis varius quam. Morbi enim nunc faucibus a pellentesque sit amet porttitor. Ut faucibus pulvinar elementum integer enim neque volutpat. Orci nulla pellentesque dignissim enim sit amet. Enim blandit volutpat maecenas volutpat blandit aliquam. Vitae auctor eu augue ut. Sit amet purus gravida quis blandit turpis cursus in hac.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Interdum velit laoreet id donec ultrices. Proin nibh nisl condimentum id. Elit ut aliquam purus sit amet luctus. Id eu nisl nunc mi ipsum faucibus vitae. In aliquam sem fringilla ut. Neque aliquam vestibulum morbi blandit cursus risus at. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus. Diam maecenas sed enim ut sem. At ultrices mi tempus imperdiet nulla malesuada. Ut lectus arcu bibendum at varius vel pharetra vel turpis. Amet dictum sit amet justo donec enim diam. Aenean et tortor at risus viverra adipiscing at in tellus. Eget dolor morbi non arcu risus quis varius quam. Phasellus vestibulum lorem sed risus ultricies tristique. Viverra nibh cras pulvinar mattis. Ultricies leo integer malesuada nunc vel risus.
+
+Ultrices sagittis orci a scelerisque purus semper. Sit amet tellus cras adipiscing enim eu turpis egestas. Eu augue ut lectus arcu bibendum at varius vel. Gravida in fermentum et sollicitudin ac orci. In tellus integer feugiat scelerisque varius morbi enim. Fermentum dui faucibus in ornare quam viverra orci sagittis eu. Sed nisi lacus sed viverra tellus in hac habitasse platea. Eget dolor morbi non arcu risus. Massa sed elementum tempus egestas sed. Arcu vitae elementum curabitur vitae.
+
+Aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc. Eros in cursus turpis massa tincidunt dui ut ornare lectus. Cras sed felis eget velit aliquet sagittis id consectetur. Nulla posuere sollicitudin aliquam ultrices sagittis orci. Pharetra et ultrices neque ornare aenean euismod. Eget velit aliquet sagittis id. Hendrerit dolor magna eget est. Orci dapibus ultrices in iaculis. Amet est placerat in egestas erat imperdiet sed. A cras semper auctor neque vitae. Convallis convallis tellus id interdum velit laoreet id. Purus in massa tempor nec feugiat nisl pretium. A lacus vestibulum sed arcu. Phasellus egestas tellus rutrum tellus pellentesque eu. Sem viverra aliquet eget sit. Tincidunt ornare massa eget egestas. Nam aliquam sem et tortor consequat id.
+
+Ultricies lacus sed turpis tincidunt id aliquet. Mattis pellentesque id nibh tortor. Ut eu sem integer vitae justo eget magna fermentum. Vulputate dignissim suspendisse in est. Tincidunt ornare massa eget egestas purus. Nisl nisi scelerisque eu ultrices vitae auctor. Quis hendrerit dolor magna eget est. Eu sem integer vitae justo eget magna fermentum iaculis. Quis ipsum suspendisse ultrices gravida dictum fusce ut. Erat imperdiet sed euismod nisi. Fames ac turpis egestas maecenas pharetra. Interdum velit euismod in pellentesque. Arcu risus quis varius quam. Morbi enim nunc faucibus a pellentesque sit amet porttitor. Ut faucibus pulvinar elementum integer enim neque volutpat. Orci nulla pellentesque dignissim enim sit amet. Enim blandit volutpat maecenas volutpat blandit aliquam. Vitae auctor eu augue ut. Sit amet purus gravida quis blandit turpis cursus in hac.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Interdum velit laoreet id donec ultrices. Proin nibh nisl condimentum id. Elit ut aliquam purus sit amet luctus. Id eu nisl nunc mi ipsum faucibus vitae. In aliquam sem fringilla ut. Neque aliquam vestibulum morbi blandit cursus risus at. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus. Diam maecenas sed enim ut sem. At ultrices mi tempus imperdiet nulla malesuada. Ut lectus arcu bibendum at varius vel pharetra vel turpis. Amet dictum sit amet justo donec enim diam. Aenean et tortor at risus viverra adipiscing at in tellus. Eget dolor morbi non arcu risus quis varius quam. Phasellus vestibulum lorem sed risus ultricies tristique. Viverra nibh cras pulvinar mattis. Ultricies leo integer malesuada nunc vel risus.
+
+Ultrices sagittis orci a scelerisque purus semper. Sit amet tellus cras adipiscing enim eu turpis egestas. Eu augue ut lectus arcu bibendum at varius vel. Gravida in fermentum et sollicitudin ac orci. In tellus integer feugiat scelerisque varius morbi enim. Fermentum dui faucibus in ornare quam viverra orci sagittis eu. Sed nisi lacus sed viverra tellus in hac habitasse platea. Eget dolor morbi non arcu risus. Massa sed elementum tempus egestas sed. Arcu vitae elementum curabitur vitae.
+
+Aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc. Eros in cursus turpis massa tincidunt dui ut ornare lectus. Cras sed felis eget velit aliquet sagittis id consectetur. Nulla posuere sollicitudin aliquam ultrices sagittis orci. Pharetra et ultrices neque ornare aenean euismod. Eget velit aliquet sagittis id. Hendrerit dolor magna eget est. Orci dapibus ultrices in iaculis. Amet est placerat in egestas erat imperdiet sed. A cras semper auctor neque vitae. Convallis convallis tellus id interdum velit laoreet id. Purus in massa tempor nec feugiat nisl pretium. A lacus vestibulum sed arcu. Phasellus egestas tellus rutrum tellus pellentesque eu. Sem viverra aliquet eget sit. Tincidunt ornare massa eget egestas. Nam aliquam sem et tortor consequat id.
+
+Ultricies lacus sed turpis tincidunt id aliquet. Mattis pellentesque id nibh tortor. Ut eu sem integer vitae justo eget magna fermentum. Vulputate dignissim suspendisse in est. Tincidunt ornare massa eget egestas purus. Nisl nisi scelerisque eu ultrices vitae auctor. Quis hendrerit dolor magna eget est. Eu sem integer vitae justo eget magna fermentum iaculis. Quis ipsum suspendisse ultrices gravida dictum fusce ut. Erat imperdiet sed euismod nisi. Fames ac turpis egestas maecenas pharetra. Interdum velit euismod in pellentesque. Arcu risus quis varius quam. Morbi enim nunc faucibus a pellentesque sit amet porttitor. Ut faucibus pulvinar elementum integer enim neque volutpat. Orci nulla pellentesque dignissim enim sit amet. Enim blandit volutpat maecenas volutpat blandit aliquam. Vitae auctor eu augue ut. Sit amet purus gravida quis blandit turpis cursus in hac.
+      <div>
+    <!-- Modal -->
+    <div class="modal fade" id="behaviorModal" tabindex="-1" role="dialog"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered mw-100 w-75"role="document"  >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="behaviorName"> </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class = "row col-sm-12" id = "description_content">
+            </div>
+            <div class = "row col-sm-12" id = "behavior_content">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark static-translation " id="cancel-button" data-dismiss="modal">  </button>
+            <!--<button type="button" class="btn btn-success" onclick="startBehavior();">Start behavior</button>-->
+            <button type="button" class="btn btn-success static-translation" id="start-button"> </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <button type="button" class="btn btn-dark" style="height: 55px; width: 180px;"> <a href="index.html" style="color: white; text-decoration:none;"> Currently doing </a> </button>
+    <button type="button" class="btn btn-success float-right" id="startBehaviorButton" style="height: 55px; width: 180px;">Add</button>
+  </footer>
+
+
+<!--
+  <span class="fa-stack fa-4x">
+  <i class="fa fa-circle fa-stack-2x icon-background"></i>
+  <i class="fa fa-lock fa-stack-1x"></i>
+</span>-->
+  <!--
+    <ul>
+    <li>Li</li>
+    <li>Li</li>
+    <li>Li</li>
+    <li>Li</li>
+  </ul>-->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- JS files: jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!--because jquery slim.min.js does not include ajax-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- font awsome (for icons) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <!-- axios (for http-requests to arangoDB) -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- roslib -->
+    <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+    <!-- translation library -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/14.0.1/i18next.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyglot.js/2.2.2/polyglot.min.js"></script>
+    <!-- own scripts -->
+    <script src="/scripts/translations.js"></script>
+    <script src="/scripts/roslib.js"></script>
+    <script src="/scripts/navbar.js"></script>
+    <script src="/scripts/site_nav_listener.js"></script>
+    <script src="/scripts/robot_message_listener.js"></script>
+    <script src="/scripts/current_status.js"></script>
+    <script src="/scripts/arangoDB.js"></script>
+    <script src="/scripts/display_behaviors.js"></script>
+    <script src="/scripts/display_behavior_site.js"></script>
+    <!--<script>
+    $(function(){
+      $("#nav-placeholder").load("navbar.html");
+    });
+  </script>-->
+
+</body>
+</html>

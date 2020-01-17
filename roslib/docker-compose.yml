@@ -1,0 +1,31 @@
+version: "3.1"
+services:
+
+    rosbridge-server:
+        image: 141.69.58.19:5000/iki/ros-kate:kinetic
+        environment:
+          ROS_IP: $ROS_IP
+          ROS_MASTER_URI: $ROS_MASTER_URI
+        stdin_open: true
+        network_mode: host
+        restart: "unless-stopped"
+        volumes:
+          - $HOME/catkin_ws/src/flexbe_behavior_engine:/root/catkin_ws/src/flexbe_behavior_engine
+          - $HOME/catkin_ws/src/ss19_eisemann_robot_ui/source/roslib/robot_status_message:/root/catkin_ws/src/robot_status_message
+          - $HOME/catkin_ws/src/ss19_eisemann_robot_ui/source/roslib/ros_services:/root/catkin_ws/src/ros_services
+            #- $HOME/catkin_ws/src/prj-iki-robotics/ros-kate:/root/catkin_ws/src/prj-iki-robotics/robots/ros-kate
+        tty: true
+        command: bash -c "cd ~/catkin_ws && catkin_make && source devel/setup.bash && roslaunch kate_bringup rosbridge_server.launch"
+        #bash -c "pwd && cd .. && catkin_make && source devel/setup.bash && roslaunch kate_bringup rosbridge_server.launch"
+
+    www:
+        build: .
+        ports:
+            - "8001:80"
+        volumes:
+            - ./www:/var/www/html/
+        networks:
+            - default
+
+volumes:
+ persistent:

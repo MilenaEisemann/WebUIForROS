@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="web_service_proxy" type="service_proxy.py" name="web_service_proxy_node" output="screen">
+  </node>
+</launch>
