@@ -1,0 +1,5 @@
+string command    # what should be done with current behavior (pause, stop, continue)
+---
+bool success      # die command succeed?
+string message    # info
+string data       # possible answer data from web ui

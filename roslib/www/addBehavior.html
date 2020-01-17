@@ -7,67 +7,55 @@
     <!-- Bootstrap CSS file -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- own style -->
+    <link rel="stylesheet" type="text/css" href="/style/style2.css">
     <link rel="stylesheet" type="text/css" href="/style/style.css">
 </head>
 <body>
-  <!--<div id="nav-placeholder"></div>-->
+  <header>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <button type="button" class="btn btn-danger static-translation" id="emergency_stop" onclick="triggerEmergencyStop()"> Emergency Stop </button>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <button type="button" class="btn btn-danger static-translation" id="emergency_stop"> Emergency Stop </button>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+      <button type="button" class="navbar-toggler bg-light" data-toggle="collapse" data-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="new_page.html"> DB <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item dropdown" id="language-dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span id="language-dropdown-text"> English </span>
-        </a>
-        <div class="dropdown-menu" id="navbar-dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="language_en" href="#" onclick="changeLanguage('en')"> English </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" id="language_de" onclick="changeLanguage('de')" href="#"> Deutsch </a>
+      <div class="collapse navbar-collapse justify-content-between" id="nav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold px-3" href="new_page.html"> DB </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold px-3" href="basic_ros.html"> ROS </a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold px-3" href="layoutTest.html"> Layout </a>
+          </li>-->
+
+          <li class="nav-item dropdown" id="language-dropdown">
+            <a class="nav-link font-weight-bold dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="language-dropdown-text"> English </span>
+            </a>
+            <div class="dropdown-menu" id="navbar-dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" id="language_en" href="#" onclick="changeLanguage('en')"> English </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="language_de" onclick="changeLanguage('de')" href="#"> Deutsch </a>
+            </div>
+          </li>
+        </ul>
+
+        <div class="navbar-right">
+          <span><span id="status"></span></span>
+          <span id="robot_info"></span>
+          <button type="button" class="btn btn-dark fa fa-microphone nav-button" id="toggleRobotListening" style="margin-right: 10px;"> </i></button>
+          <button type="button" class="btn btn-dark fa fa-volume-up nav-button" id="toggleRobotSpeech" style="margin-right: 10px;"> </i></button>
         </div>
-      </li>
-    </ul>
-    </div>
+      </div> <!-- end collapsing part -->
 
-    <div class="center-nav">
-      <h1 class="heading"> ROS UI </h1>
-      <div>
-      <span><span id="status"></span></span>
-      <span id="robot_info"></span>
-      </div>
-    </div>
-    <button type="button" class="btn btn-dark fa fa-cogs nav-button"> </button>
-    <button type="button" class="btn btn-dark fa fa-microphone nav-button" id="toggleRobotListening"> </i></button>
-    <button type="button" class="btn btn-dark fa fa-volume-up nav-button"> </i></button>
-  </nav>
+    </nav>
+</header>
 
-<!--
-  <div class="card card-outline-danger text-center">
-  <span class="pull-right clickable close-icon" data-effect="fadeOut"><i class="fa fa-times"></i></span>
-  <div class="card-block">
-    <blockquote class="card-blockquote">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-    </blockquote>
-  </div>
-</div>
--->
-
-  <!--
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroup-sizing-sm">Small</span>
-  </div>
-  <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-</div>
--->
-
+<main>
   <div class="container">
     <div class="row justify-content-center align-self-center">
       <h2 class="static-translation" id="compose_behavior"> </h2>
@@ -88,6 +76,7 @@
         <textarea rows="3" id="new_behavior_description" style="width: 100%;"></textarea>
       </div>
     </div>
+  </div>
 
   <div class="container">
     <div class="row" id="behavior_sequence" onscroll="drawArrows()"> </div>
@@ -96,12 +85,92 @@
     <button class="btn btn-success" onclick="addBehaviorStep()"> Add step </button>
     </div>
   </div>
+</main>
 
-  <div>
-    <button type="button" class="btn btn-success float-right static-translation" id="saveBehaviorButton" onclick="saveNewBehavior()" style="margin-right: 20px;">  </button>
-    <button type="button" class="btn btn-dark" style="margin-left: 20px;">   <a class="nav-link static-translation" id="cancelBehaviorButton" href="new_page.html" style="color: white; text-decoration:none;"> </a> </button>
+<footer>
+  <div class = "row justify-content-between">
+      <button type="button" class="footer-button btn btn-dark static-translation" id="cancelBehaviorButton" onclick="window.location.href='/new_page.html'">   </button>
+      <button type="button" class="footer-button btn btn-success float-right static-translation" id="saveBehaviorButton" onclick="saveNewBehavior()">  </button>
+    </div>
+</footer>
+
+  <!-- Modal yes/no-->
+  <div class="modal fade" id="yes_no_modal" data-backdrop="static" tabindex="-1" role="dialog"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75"role="document"  >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title static-translation" id="requested_modal_title"> </h5>
+        </div>
+        <div class="modal-body">
+          <div class = "row col-sm-12" class="input_description">
+            You just told me your name. I understood that your name is Ava.<br>
+            Is this correct?
+          </div>
+          <div class = "row col-sm-12" id = "behavior_content">
+            <!--<button type="button" class="btn btn-success" onclick="sendSMCommand({userInput:'yes'})"> yes </button> -->
+            <button type="button" class="btn btn-success larger-button static-translation" id="input_yes"></button>
+            <button type="button" class="btn btn-danger larger-button static-translation" id="input_no"></button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- Modal object-->
+  <div class="modal fade" id="object_modal" data-backdrop="static" tabindex="-1" role="dialog"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75"role="document"  >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title static-translation" id="requested_modal_title_object" > Hey, I need your input </h5>
+        </div>
+        <div class="modal-body">
+          <div class = "row col-sm-12" class="input_description">
+            I need information about which object should be used?
+          </div>
+          <div class = "row col-sm-12" id = "behavior_content">
+            <div class="dropdown" id="obj-dropdown">
+              <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown">
+                <span class="static-translation" id="object-dropdown-text"></span>
+                <span class="caret"></span>
+                <ul class="dropdown-menu" id="object-modal-dropdown"> </ul>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="start-button">Accept</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal location-->
+  <div class="modal fade" id="location_modal" data-backdrop="static" tabindex="-1" role="dialog"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-75"role="document"  >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title static-translation" id="requested_modal_title" > Hey, I need your input </h5>
+        </div>
+        <div class="modal-body">
+          <div class = "row col-sm-12" class="input_description">
+            I need information about which location should be used?
+          </div>
+          <div class = "row col-sm-12" id = "behavior_content">
+            <div class="dropdown" id="obj-dropdown">
+              <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown">
+                <span class="static-translation" id="location-dropdown-text"> </span>
+                <span class="caret"></span>
+                <ul class="dropdown-menu" id="location-modal-dropdown"> </ul>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="start-button">Accept</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Material Design

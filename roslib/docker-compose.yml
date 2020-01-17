@@ -11,11 +11,13 @@ services:
         restart: "unless-stopped"
         volumes:
           - $HOME/catkin_ws/src/flexbe_behavior_engine:/root/catkin_ws/src/flexbe_behavior_engine
-          - $HOME/catkin_ws/src/ss19_eisemann_robot_ui/source/roslib/robot_status_message:/root/catkin_ws/src/robot_status_message
-          - $HOME/catkin_ws/src/ss19_eisemann_robot_ui/source/roslib/ros_services:/root/catkin_ws/src/ros_services
+          #- $HOME/catkin_ws/src/ss19_eisemann_robot_ui/source/roslib/robot_status_message:/root/catkin_ws/src/robot_status_message
+          #- $HOME/catkin_ws/src/ss19_eisemann_robot_ui/source/roslib/ros_services:/root/catkin_ws/src/ros_services
+          - $HOME/catkin_ws/src/ss19_eisemann_robot_ui/source/roslib/ros:/root/catkin_ws/src/ros
             #- $HOME/catkin_ws/src/prj-iki-robotics/ros-kate:/root/catkin_ws/src/prj-iki-robotics/robots/ros-kate
         tty: true
-        command: bash -c "cd ~/catkin_ws && catkin_make && source devel/setup.bash && roslaunch kate_bringup rosbridge_server.launch"
+        command: bash -c "cd ~/catkin_ws && catkin_make && source devel/setup.bash && roslaunch requirements_launch requirements_launch.launch"
+        #bash -c "cd ~/catkin_ws && catkin_make && source devel/setup.bash && tail -f /dev/null"
         #bash -c "pwd && cd .. && catkin_make && source devel/setup.bash && roslaunch kate_bringup rosbridge_server.launch"
 
     www:

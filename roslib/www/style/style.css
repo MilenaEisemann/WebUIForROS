@@ -182,6 +182,11 @@ input{
   width: 600px;
 }
 
+.action-container{
+  display:flex;
+  margin: 20px;
+}
+
 .action_list{
   margin: auto;
 }

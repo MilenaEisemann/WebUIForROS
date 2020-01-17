@@ -1,5 +1,5 @@
 $(function () {
-  $('#stop_modal').modal({ show: false})
+  $('#pause_modal').modal({ show: false})
 })
 
 var behavior_control_client = new ROSLIB.Service({
@@ -8,6 +8,11 @@ ros: ros,
     serviceType: "website_services.srv/BehaviorControlMsg"
 })
 
+/**
+* fct to switch running behavior between paused and running
+* uses text of button to identify current state --> calls service accordingly
+* NOTE: this service is only a dummy at the moment
+**/
 function pauseContinueBehavior(){
   var button = document.getElementById("pause_and_continue_button");
   if (button.innerHTML == "pause"){
@@ -15,21 +20,24 @@ function pauseContinueBehavior(){
 
     behavior_control_client.callService(request, function(result){
       console.log("got the service result");
-      $('#stop_modal').modal({ show: true})
+      $('#pause_modal').modal({ show: true})
+      button.innerHTML = "continue";
     })
 
-    button.innerHTML = "continue";
   } else {
     var request = new ROSLIB.ServiceRequest({command: "continue"});
 
     behavior_control_client.callService(request, function(result){
       console.log("got the service result");
+      button.innerHTML = "pause";
     })
-
-    button.innerHTML = "pause";
   }
 }
 
+/**
+* fct to completly stop running behavior
+* NOTE: this service is only a dummy at the moment
+**/
 function stopBehavior(){
   var request = new ROSLIB.ServiceRequest({command: "stop"});
 

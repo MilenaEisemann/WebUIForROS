@@ -7,7 +7,7 @@ function displayBehaviors(data){
   data.forEach(function(entry){
     if (entry.show){ //some entries might only be shown in db/for admin
       var cardColumn = document.createElement('div');
-      cardColumn.className = 'col-sm-4';
+      cardColumn.className = 'col-sm-12 col-md-4';
 
       var card = document.createElement('div');
       card.className = 'card behavior-card';

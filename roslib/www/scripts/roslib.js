@@ -15,6 +15,16 @@
     document.getElementById("status").innerHTML = "Connection closed";
   });
 
+  setInterval(() => {
+    getStartLanguage()
+      .then(value => {
+        changeLanguage(value);
+      });
+  }, 1000);//regularly check for changed ROS param for language
+
+
+
+
   //ROS params
   //get all params
   ros.getParams(function(params) {
@@ -35,13 +45,6 @@
     ros : ros,
     name : 'language'
   });
-  /*
-  currLanguage.get(function(value) {
-    console.log('Language is: ' + value);
-    site_language = value;
-    console.log(site_language);
-    console.log("byeeeeeeeeeeeeee");
-  });*/
 
   //example on how setting ros param would work
   //websocketPort.set(9091);
@@ -60,6 +63,13 @@
     console.log("got the service result");
   })
 
+  website_feedback_topic = new ROSLIB.Topic({
+    ros : ros,
+    name : "/web/feedback",
+    //messageType : 'std_msgs/String'
+    messageType : 'website_feedback_message/WebsiteFeedback'
+  });
+
   //subscriber
   var txt_listener = new ROSLIB.Topic({
     ros : ros,
@@ -70,7 +80,7 @@
   });
 
   txt_listener.subscribe(function(m) {
-    document.getElementById("msg").innerHTML = "linear x = " + m.linear.x;
+    //document.getElementById("msg").innerHTML = "linear x = " + m.linear.x;
     //document.getElementById("msg").innerHTML = m.data;
   });
 
@@ -82,7 +92,10 @@
   });
 
   status_listener.subscribe(function(m) {
-    displayRobotInfo(m);  //in current_status.js
+    if (!processingStepsFromMessage){
+      processingStepsFromMessage = true;
+      displayRobotInfo(m);  //in current_status.js
+    }
   })
 
   //publish on button click
@@ -132,10 +145,7 @@
    }
   });
 
-/*
-  goal.on('feedback', function(feedback) {
-    alert("got feedback");
-    //console.log('Feedback: ' + feedback.current_state);
+/*goal.on('feedback', function(feedback) {
     document.getElementById("feedback").innerHTML = feedback.current_state;
   }); */
 
@@ -144,11 +154,9 @@
       console.log(feedback);
       document.getElementById("result").innerHTML = "Behavior running";
     }
-    //console.log('Feedback: ' + feedback.current_state);
   });
 
   goal.on('result', function(result) {
-    //alert("got a result");
     document.getElementById("result").innerHTML = result.outcome;
   });
 
@@ -169,7 +177,6 @@
        }
      });
      goal2.on('result', function(result) {
-       //alert("got a result");
        document.getElementById("result").innerHTML = result.outcome;
      });
 
@@ -188,6 +195,15 @@
     });
   });
 
+function return_feedback(result, value){
+    var msg = new ROSLIB.Message({
+      message: result,
+      data: value
+    });
+    website_feedback_topic.publish(msg);
+}
+
+
 function getStartLanguage(){
   return new Promise(function(resolve, reject){
     var currLanguage = new ROSLIB.Param({
@@ -196,7 +212,6 @@ function getStartLanguage(){
     });
 
     currLanguage.get(function(value) {
-      console.log(value);
       resolve(value);
     })
    });

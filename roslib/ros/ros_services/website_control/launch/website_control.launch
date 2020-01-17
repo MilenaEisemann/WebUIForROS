@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="website_control" type="website_control_service.py" name="service_client_website_control" output="screen">
+  </node>
+</launch>

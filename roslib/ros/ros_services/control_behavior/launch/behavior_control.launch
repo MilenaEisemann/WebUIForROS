@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="control_behavior" type="behavior_control.py" name="behavior_control_node" output="screen">
+  </node>
+</launch>

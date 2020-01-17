@@ -42,7 +42,8 @@ input{
 }
 
 .behavior-card{
-  height: 165px;
+  /*height: 165px;*/
+  height: 180px;
   cursor: pointer;
 }
 
@@ -54,11 +55,115 @@ input{
 
 /* navbar */
 .nav-link {
-margin-top: 20px;
+margin-top: 5px;
 line-height: 27px;
+color:red;
 }
 
-/* not working! */
-#language-dropdown{
-  margin-top: 0px !important;
+.footer-button{
+  height: 55px;
+  width: 180px;
+}
+
+#navbarDropdown{
+  margin-top: 5px;
+}
+
+.typeWarning{
+  background-color: yellow !important;
+}
+
+.typeError{
+  background-color: red !important;
+}
+
+.action_failed{
+  color: red;
+}
+
+.action_succeeded{
+  color: green;
+}
+
+
+@media (max-width: 992px){
+  main{
+    overflow-y: auto;
+  }
+
+  div {
+    color: blue;
+  }
+
+  h3{
+    font-size: 1.3rem !important;
+  }
+
+  .nav-link {
+  margin-top: 5px;
+  line-height: 27px;
+  color:red;
+  }
+
+  #navbarDropdown{
+    margin-top: 5px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 768px){
+  main{
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  div {
+    color: green;
+  }
+
+  h3{
+    font-size: 1.3rem !important;
+  }
+
+  #emergency_button{
+    width: 180px;
+  }
+
+  #navbarDropdown{
+    margin-top: 5px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .nav-link {
+  margin-top: 5px;
+  line-height: 27px;
+  color:red;
+  }
+}
+
+@media (max-width: 480px){
+  main{
+    overflow-y: auto;
+  }
+
+  div {
+    color: red;
+  }
+
+  h3{
+    font-size: 1.3rem !important;
+  }
+
+  #navbarDropdown{
+    margin-top: 5px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .footer-button{
+    height: 55px;
+    width: 100%;
+  }
 }

@@ -1,29 +1,41 @@
-/*$(function(){
-  axios.get('http://127.0.0.1:8529/_db/knowledge-base/_api/document/Objects/81780')
-  .then(function (response) {
-    //resultElement.innerHTML = generateSuccessHTMLOutput(response);
-    console.log(response.data);
-  })
-  .catch(function (error) {
-    //resultElement.innerHTML = generateErrorHTMLOutput(error);
-    console.log(error);
-  });
-})*/
-
 var databaseURL = "http://127.0.0.1:8529/_db/knowledge-base/_api/";
 
 $(function(){
   //getAllObjects();
-
   //getAllBehaviors();
   getAllBehaviors();
-
   //getObjects();
   //updateBehavior(79283, "updatedBehavior", "coffee");
   //addBehavior("testBehavior", "compass");
   //deleteBehavior(40693);
   //getBehavior(40693);
 })
+
+function fetchAction(key, language){
+  var query = `for a in Actions
+      filter a._key == "` + key + `"
+          LET translation = (
+              for l, e, p in 1..1 outbound a._id Relations
+                  filter l.name == "` + language + `"
+              return p.edges[0].translation
+          )
+          LET icon = First(
+              for l, e, p in 1..1 outbound a._id Relations
+                  filter p.edges[0].type == "has_property" && p.vertices[1].name == "Icon"
+                      return p.edges[0].name
+          )
+          return {name: a.name, icon: icon, translation: translation[0]}`
+  return axios.post(databaseURL + 'cursor', {
+    "query": query
+  })
+  .then(function (response) {
+    console.log("fetch actions", response.data.result[0]);
+    return response.data.result;
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+}
 
 function getAllObjects(){
   axios.post(databaseURL + 'cursor', {
@@ -67,7 +79,7 @@ function getRobotMessage(id, language){
 
 
 function fetchLocations(language){
-  var query = `for o in Objects let list = (
+  /*var query = `for o in Objects let list = (
     for j, e, p in 1..1 outbound o._id Relations prune  e.type == "is_at"
         filter IS_SAME_COLLECTION("Objects", j._id)
             filter e.type == "is_at" || e.type == "is_part_of"
@@ -77,7 +89,14 @@ function fetchLocations(language){
     filter count(list) > 0
         for l2, e2, p2 in 1..1 outbound o._id Relations
             filter p2.edges[0].type == "has_property" && l2.name == "` + language + `"
-                return {id: o._id, name: o.name, translation: e2.translation}`;
+                return {id: o._id, name: o.name, translation: e2.translation}`;*/
+  var query = `for c in Conceptuals
+    for l, e, p in 1..1 outbound c._id Relations
+        filter e._to == "Conceptuals/296802"
+          for l2, e2, p2 in 1..1 outbound c._id Relations
+            filter l2.name == "` + language + `"
+            SORT e2.translation ASC
+              return {id: c._id, name: c.name, translation: e2.translation}`;
   return axios.post(databaseURL + 'cursor', {
     "query": query
     //"query": 'for o in Objects let list = (for j, e, p in 1..1 outbound o._id Relations prune  e.type == "is_at" filter IS_SAME_COLLECTION("Objects", j._id) filter e.type == "is_at" || e.type == "is_part_of" filter e.type != "is_a" filter p.edges[0].type != "prob_is_at" return j) filter count(list) > 0 return {id: o._id, name: o.name}'
@@ -107,6 +126,7 @@ function fetchObjects(language){
         filter p.edges[0].type == "is_a"
         for l2, e2, p2 in 1..1 outbound l._id Relations
               filter p2.edges[0].type == "has_property" && l2.name == "` + language + `"
+        SORT e2.translation ASC
         return {id: o._id, name: l.name, translation: e2.translation}`;
 
   return axios.post(databaseURL + 'cursor', {
@@ -183,7 +203,6 @@ function fetchBehaviorNames(){
         return {id: b._id, name: b.name, show: b.showInUI, icon: icon, languages: languages, params: params, specs: specs}`;
 
   return axios.post(databaseURL + 'cursor', {
-  //  "query": 'for o in Objects for l, e, p in 1..1 outbound o._id Relations filter p.edges[0].type == "is_a" return {id: o._id, name: l.name}'
     "query": query
   })
   .then(function (response) {
@@ -232,11 +251,9 @@ function getBehaviorById(id){
         return {id: b._id, name: b.name, show: b.showInUI, icon: icon, languages: languages, params: params, specs: specs}`;
 
   return axios.post(databaseURL + 'cursor', {
-  //  "query": 'for o in Objects for l, e, p in 1..1 outbound o._id Relations filter p.edges[0].type == "is_a" return {id: o._id, name: l.name}'
     "query": query
   })
   .then(function (response) {
-    console.log("???????????????", response.data.result);
     return(response.data.result);
   })
   .catch(function (error) {
@@ -335,7 +352,7 @@ function update2(){
 
 }*/
 
-function deleteBehavior(document_key){
+/*function deleteBehavior(document_key){
   axios.get(databaseURL + 'document/Behaviors/' + document_key.toString())
   .then(function (response) {
     console.log("get one behavior", response.data);
@@ -350,13 +367,23 @@ function deleteBehavior(document_key){
   .catch(function (error) {
     console.log("document is not in db - ", error);
   });
-}
+}*/
+
+function deleteBehavior(document_key){
+  axios.delete(databaseURL + 'document/Behaviors/' + document_key.toString())
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
 function updateBehavior(document_key, name, icon){
   axios.patch(databaseURL + '/document/Behaviors/' + document_key, {
     //"query": "FOR b IN Behaviors FILTER name=='testBehavior' UPDATE b WITH {name: 'name'}"
-    "name" : name,
-    "icon" : icon
+    "name" : name /*,
+    "icon" : icon*/
   }).then(function (response) {
     console.log(response);
     getAllBehaviors();

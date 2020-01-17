@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="robot_listening" type="switch_listeningmode_service.py" name="service_client_listeningmode" output="screen">
+  </node>
+</launch>

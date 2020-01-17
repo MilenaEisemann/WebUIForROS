@@ -8,64 +8,110 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- own style -->
     <link rel="stylesheet" type="text/css" href="/style/style.css">
+    <link rel="stylesheet" type="text/css" href="/style/style2.css">
 </head>
 <body>
-  <!--<div id="nav-placeholder"></div>-->
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <button type="button" class="btn btn-danger static-translation" id="emergency_stop"> Emergency Stop </button>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <button type="button" class="btn btn-danger static-translation" id="emergency_stop" onclick="triggerEmergencyStop()"> Emergency Stop </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="new_page.html"> DB <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="basic_ros.html"> ROS <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="layoutTest.html"> layout <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item dropdown" id="language-dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span id="language-dropdown-text"> English </span>
-        </a>
-        <div class="dropdown-menu" id="navbar-dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="language_en" href="#" onclick="changeLanguage('en')"> English </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" id="language_de" onclick="changeLanguage('de')" href="#"> Deutsch </a>
+      <button type="button" class="navbar-toggler bg-light" data-toggle="collapse" data-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="nav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold px-3" href="new_page.html"> DB </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold px-3" href="basic_ros.html"> ROS </a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold px-3" href="layoutTest.html"> Layout </a>
+          </li>-->
+
+          <li class="nav-item dropdown" id="language-dropdown">
+            <a class="nav-link font-weight-bold dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="language-dropdown-text"> English </span>
+            </a>
+            <div class="dropdown-menu" id="navbar-dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" id="language_en" href="#" onclick="changeLanguage('en')"> English </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="language_de" onclick="changeLanguage('de')" href="#"> Deutsch </a>
+            </div>
+          </li>
+        </ul>
+
+        <div class="navbar-right">
+          <span><span id="status"></span></span>
+          <span id="robot_info"></span>
+          <button type="button" class="btn btn-dark fa fa-microphone nav-button" id="toggleRobotListening" style="margin-right: 10px;"> </i></button>
+          <button type="button" class="btn btn-dark fa fa-volume-up nav-button" id="toggleRobotSpeech" style="margin-right: 10px;"> </i></button>
         </div>
-      </li>
-    </ul>
-    </div>
+      </div> <!-- end collapsing part -->
 
-    <div class="center-nav">
-      <h1 class="heading"> ROS UI </h1>
-      <div>
-      <span><span id="status"></span></span>
-      <span id="robot_info"></span>
-      </div>
-    </div>
-    <button type="button" class="btn btn-dark fa fa-cogs nav-button"> </button>
-    <button type="button" class="btn btn-dark fa fa-microphone nav-button" id="toggleRobotListening"> </i></button>
-    <button type="button" class="btn btn-dark fa fa-volume-up nav-button"> </i></button>
-  </nav>
+    </nav>
+</header>
 
-  <div class="container">
+  <main>
+  <div class="container" id="container_db">
     <div class="row justify-content-center align-self-center">
       <h2 class="static-translation" id="choose_behavior"> What do you want me to do? </h2>
     </div>
     <div class="row" id="behavior_wrapper">
     </div>
   </div>
+
+  <div class="jumbotron text-center" id="container_currently_doing">
+    <h1 id="current_task_heading">CURRENTLY DOING </h1>
+    <h1 id="current_task"> </h1>
+      <div class="container-fluid d-flex" id="current_status" style="align-items:center"> </div>
+        <!-- container (non-scrollable) for cards-->
+        <div class="row" id="card_container" onscroll="drawActionArrows()"> </div>
+        <div class="col-sm-6 mx-auto">
+          <!--<div class="card" id="robot_messages">
+            <div class="card-body">
+            </div>
+          </div>-->
+        </div>
+
+      <!--display messages for active action-->
+      <!--<div id="robot_messages2"></div>-->
+  </div>
+
   <ul id="allDBObjects"> </ul>
+</main>
+
+<footer>
+  <div class = "row justify-content-between">
+      <button type="button" class="footer-button btn btn-dark" onclick="window.location.href='/index.html'"> Currently Doing </button>
+      <button type="button" class="footer-button btn btn-success float-right"> <a class="nav-link static-translation" id="addBehaviorButton" href="addBehavior.html" style="color: white; text-decoration:none;">  </a> </button>
+  </div>
+
+  <!-- Modal for robot messages-->
+  <div class="modal fade" id="messageModal" tabindex="-1" role="dialog"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-100 w-50"role="document">
+      <div class="modal-content" id="messageContent">
+        <div class="modal-body">
+          <div class="row col-sm-12">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class = "row col-sm-12" id = "message">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
   <!-- Modal -->
   <div class="modal fade" id="behaviorModal" tabindex="-1" role="dialog"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-100 w-75"role="document"  >
+    <div class="modal-dialog modal-dialog-centered mw-100 w-50"role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="behaviorName">Modal title</h5>
@@ -90,7 +136,7 @@
 
   <!-- Modal yes/no-->
   <div class="modal fade" id="yes_no_modal" data-backdrop="static" tabindex="-1" role="dialog"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-100 w-75"role="document"  >
+    <div class="modal-dialog modal-dialog-centered mw-100 w-50"role="document"  >
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title static-translation" id="requested_modal_title"> </h5>
@@ -118,7 +164,7 @@
           <h5 class="modal-title static-translation" id="requested_modal_title_object" > Hey, I need your input </h5>
         </div>
         <div class="modal-body">
-          <div class = "row col-sm-12" class="input_description">
+          <div class = "row col-sm-12 input_description">
             I need information about which object should be used?
           </div>
           <div class = "row col-sm-12" id = "behavior_content">
@@ -132,7 +178,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" id="start-button">Accept</button>
+          <button type="button" class="btn btn-success" id="start-button" onclick="sendModalData('object_modal')">Accept</button>
         </div>
       </div>
     </div>
@@ -140,7 +186,7 @@
 
   <!-- Modal location-->
   <div class="modal fade" id="location_modal" data-backdrop="static" tabindex="-1" role="dialog"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-100 w-75"role="document"  >
+    <div class="modal-dialog modal-dialog-centered mw-100 w-50"role="document"  >
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title static-translation" id="requested_modal_title" > Hey, I need your input </h5>
@@ -164,11 +210,6 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div>
-    <button type="button" class="btn btn-dark " style="margin-left: 20px;">   <a class="nav-link static-translation" id="currently_doing_button" href="index.html" style="color: white; text-decoration:none;"> </a> </button>
-    <button type="button" class="btn btn-success float-right" style="margin-right: 20px;">   <a class="nav-link static-translation" id="addBehaviorButton" href="addBehavior.html" style="color: white; text-decoration:none;">  </a> </button>
   </div>
 
 
@@ -201,6 +242,8 @@
     <!-- translation library -->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/14.0.1/i18next.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/polyglot.js/2.2.2/polyglot.min.js"></script>
+    <!--drawing lines -->
+    <script src="https://cdn.jsdelivr.net/npm/leader-line@1.0.5/leader-line.min.js" integrity="sha256-+Ic1fQq2KEgvGNyWnicDssn8xc3P7syUmmmWWDvp2xQ=" crossorigin="anonymous"></script>
     <!-- own scripts -->
     <script src="/scripts/translations.js"></script>
     <script src="/scripts/roslib.js"></script>
@@ -208,6 +251,7 @@
     <script src="/scripts/site_nav_listener.js"></script>
     <script src="/scripts/robot_message_listener.js"></script>
     <script src="/scripts/current_status.js"></script>
+    <script src="/scripts/current_status_detail.js"></script>
     <script src="/scripts/arangoDB.js"></script>
     <script src="/scripts/display_behaviors.js"></script>
     <script src="/scripts/display_behavior_site.js"></script>

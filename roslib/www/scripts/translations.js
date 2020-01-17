@@ -1,3 +1,12 @@
+/**
+* uses Polyglot.js for translation of static UI elements (translations for data from db is stored there)
+* polyglot_en holds all transaltions for the english site, while polyglot_de holds all transaltions for the german site
+
+* HOW TO ADD NEW TRANSLATIONS:
+* the html element that should be translated needs to have the class "static-translation" + any id
+* id is used as key in phrases --> value is the actual string that will be displayed (remember to add to both the english and german polyglot)
+**/
+
 var polyglot_en = new Polyglot({
   locale: 'en',
   phrases: {
@@ -5,6 +14,7 @@ var polyglot_en = new Polyglot({
     "translation_test": "This is an english text",
     "choose_behavior": "What do you want me to do?",
     "emergency_stop": "Emergency Stop",
+    "infoEmergencyStop": "Emergency stop performed, please restart the whole robot system to correctly use the Web UI again after solving the problem.",
     "addBehaviorButton": "Create new behavior",
     "currently_doing_button": "Currently doing",
     "requested_modal_title": "Hey, I need your input",
@@ -19,7 +29,7 @@ var polyglot_en = new Polyglot({
     "start-button": "Start behavior",
     "compose_behavior": "Please compose your new behavior",
     "cancelBehaviorButton": "Cancel",
-    "saveBehaviorButton": "Save new behavior"
+    "saveBehaviorButton": "Save new behavior",
   }
 });
 
@@ -30,6 +40,7 @@ var polyglot_de = new Polyglot({
     "translation_test": "Das ist ein deutscher Text",
     "choose_behavior": "Was soll ich machen?",
     "emergency_stop": "Notaus",
+    "infoEmergencyStop": "Notaus ausgelöst, bitte starte den gesamten Roboter neu, nachdem das Problem gelöst wurde um diese Web UI wieder korrekt verwenden zu können.",
     "addBehaviorButton": "Füge neue Aufgabe hinzu",
     "currently_doing_button": "Zur laufenden Aufgabe",
     "requested_modal_title": "Hey, ich brauche deinen Input",
@@ -49,26 +60,23 @@ var polyglot_de = new Polyglot({
 
 $(function(){
   //get current ROS-param?
-  //console.log("here come all the ids");
   $(".static-translation").each(function() {
-    //console.log(this.id);
     document.getElementById(this.id).innerHTML = polyglot_en.t(this.id);
   });
-
 });
 
-
+/**
+* fct changes text for each element with class "static-translation", to the value from polyglot in language from param ("en" or "de")
+**/
 function displayLanguage(language){
   if (language == 'en'){
     console.log(polyglot_en.t('message_count', {smart_count: 2}));
     $(".static-translation").each(function() {
-      //console.log(this.id);
       document.getElementById(this.id).innerHTML = polyglot_en.t(this.id);
     });
   } else {
     console.log(polyglot_de.t('message_count', {smart_count: 2}));
     $(".static-translation").each(function() {
-    //  console.log(this.id);
       document.getElementById(this.id).innerHTML = polyglot_de.t(this.id);
     });
   }

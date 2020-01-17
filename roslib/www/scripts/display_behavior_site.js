@@ -1,12 +1,12 @@
 $(function () {
   $('#behaviorModal').modal({ show: false})
 
-  $('#addBehaviorButton').on('click', function(event) {
+  /*$('#addBehaviorButton').on('click', function(event) {
     //event.preventDefault(); // To prevent following the link (optional)
     console.log("tst");
     //$('#behaviorModal').modal({ show: false});
     //startBehavior();
-  });
+  });*/
 })
 
 function display_behavior(behavior){

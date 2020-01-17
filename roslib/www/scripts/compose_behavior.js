@@ -22,6 +22,11 @@ function saveNewBehavior(){
   console.log(newBehavior);
 }
 
+/**
+* fct to add a new card at the end of the sequence for the user to input the next step
+* dropdown is with all available tasks from the db is displayed
+* after user chose a behavior, fields for required params are displayed
+**/
 function addBehaviorStep(){
   /*
   console.log("========================");
@@ -135,6 +140,10 @@ function drawArrows(){
   });
 }
 
+/**
+* fct updates number of current steps in the sequence
+* called when step is deleted
+**/
 function updateStepNumbers(){
   numOfSteps = $("#behavior_sequence > div").length;
   console.log("numOfSteps" + numOfSteps);

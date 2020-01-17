@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="emergency_stop" type="trigger_emergency_stop.py" name="service_client_emergency_stop" output="screen">
+  </node>
+</launch>

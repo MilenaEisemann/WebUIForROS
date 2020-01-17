@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="robot_speech_toggle" type="switch_speechmode_service.py" name="service_client_speechmode" output="screen">
+  </node>
+</launch>

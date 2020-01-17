@@ -1,0 +1,10 @@
+<launch>
+  <include file="$(find kate_bringup)/launch/web/rosbridge_server.launch"/>
+
+  <include file="$(find control_behavior)/launch/behavior_control.launch"/>
+  <include file="$(find emergency_stop)/launch/emergency_stop.launch"/>
+  <include file="$(find robot_listening)/launch/robot_listening.launch"/>
+  <include file="$(find robot_speech_toggle)/launch/robot_speech_toggle.launch"/>
+  <include file="$(find web_service_proxy)/launch/web_service_proxy.launch"/>
+  <include file="$(find website_control)/launch/website_control.launch"/>
+</launch>

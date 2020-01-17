@@ -3,10 +3,12 @@ var current_behavior_params = new Map([
 //e.g. ['waiting_time', 5],
 ]);
 
+/**
+* fct checks db for valid specifications on how to actually start behavior on robot
+* NOTE: currently only option is to use an action call
+**/
 function startBehavior(behavior){
   console.log("starting Behavior " + behavior.key);
-  //checkForAllParams(behavior);
-  //if (typeof behavior.execution_specs !== 'undefined'){
   if (typeof behavior.specs !== 'undefined'){
     if (behavior.specs[0].start_type === "action"){
       console.log("we need to start an action");
@@ -23,6 +25,12 @@ function startBehavior(behavior){
   $('#behaviorModal').modal('hide');
 }
 
+/**
+* fct checks if and which params are needed
+* checks for calid user input depending of type of each param
+* displays alert if value is missing
+* returns true if all needed params have valid values
+**/
 function checkForAllParams(behavior){
   var missingValue = false;
   if(behavior.params.length > 0){ // if there are parameters
@@ -41,7 +49,7 @@ function checkForAllParams(behavior){
         }
       //check for dropdowns
       } else if (param.param.type == "location" || param.param.type == "object"){
-        if(inputToCheck.firstChild.innerText != polyglot_en.t("object-dropdown-text") && inputToCheck.firstChild.innerText != polyglot_de.t("object-dropdown-text") && inputToCheck.firstChild.innerText != polyglot_en.t("location-dropdown-text") && inputToCheck.firstChild.innerText != polyglot_de.t("object-dropdown-text") ){
+        if(inputToCheck.firstChild.innerText != polyglot_en.t("object-dropdown-text") && inputToCheck.firstChild.innerText != polyglot_de.t("object-dropdown-text") && inputToCheck.firstChild.innerText != polyglot_en.t("location-dropdown-text") && inputToCheck.firstChild.innerText != polyglot_de.t("location-dropdown-text") ){
           console.log(param.param.name + " = " + inputToCheck.firstChild.innerText);
         } else {
           missingValue = true;
@@ -53,6 +61,9 @@ function checkForAllParams(behavior){
   return !missingValue; //if value is missing, return false
 }
 
+/**
+* fct uses information from db and user input to correctly compose the actionclient & newActionGoal, then sends the goal to the actionserver
+**/
 function startAction(behavior){
   //convert map into two arrays for values + keys
   var arg_values = Array.from(current_behavior_params.values());
